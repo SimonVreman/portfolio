@@ -22,6 +22,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/page.mdx",
+    "src/app/page.mdx",
+    "postcss.config.mjs",
+    "src/app/a/hello-world/page.mdx"
+  ],
   "exclude": ["node_modules"]
 }

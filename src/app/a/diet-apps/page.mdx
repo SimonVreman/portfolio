@@ -1,0 +1,46 @@
+export const metadata = {
+  title: 'Diet apps',
+  alternates: { canonical: '/a/diet-apps' },
+}
+
+# Diet apps
+
+_May 19th, 2025_
+
+I have some experience in diet app development. For about three years, I have been building and improving a diet app used on a daily basis to guide healthy diet habits, and control weight.
+
+An important catch is that I am the only user. It is tailor made to my needs specifically, out of frustration with existing solutions. The usual justification for spending this much time on something I only use myself is usually "health is important". But to honestly, I kind of like a properly built, native SwiftUI experience and for an app that you use throughout your day, this is a must.
+
+## The problem
+
+The problem is largely about the split between great apps, and great data. For context, I live in the Netherlands so I need a tracking app that fulfills the following key requirements:
+
+- Metric units, and preferably grams only (no volume units, cups, etc.)
+- A _complete_ database, that is, _anything_ I grab from the shelf with a barcode should be in the app
+- If the UI jumps or lags, or requires more taps and swipes than necessary, it is disqualified
+- Bonus if it also tracks micronutrients
+
+So this just doesn't really exist. I have tried apps that use the right units, track (some) micronutrients and have a good UI, but it always falls short on the database. Maybe this is just a Dutch thing, and our stuff is not in commercial datasets, but I refuse to manually enter even a single item. There are actually some decent apps that copy from the label by picture, but that is not flawless and misses additional data like micronutrients and food categories.
+
+## Where is the data
+
+So it turns out, the data is actually available (ish). [Het Voedingscentrum](https://www.voedingscentrum.nl/) is an organization that handles all kinds of food related stuff in the Netherlands. And apparently, they do get access to a dataset to which companies are legally required to submit their data. On top of this, they link it with data on portion sizes, nutrients after preparation, and have a bunch of standardized 'unbranded' items.
+
+That's just it! I should integrate with their API!
+
+Well no, the data is proprietary and not available publicly, which has been confirmed in court. They do have their own app that has access to the data, but it is... below my standards. If I open the app I don't have a clue where I am at on my most important metrics, even a spreadsheet would be more useful. And recently they surprised me with a new and big update, but it didn't improve much and introduced some significant bugs.
+
+## 'Public' API
+
+_"That's just it! I should integrate with their API!"_ Is actually what I did. While they do not have a public API, they do use one for their app. It is pretty inconsistent and there is no documentation available, but with some reverse engineering you can pull your data out. I approached it in a pretty simple way, just building a wrapper in Swift. It works something like this:
+
+1. Authenticate with an account you made for their app
+2. Map endpoints as well as possible to features you want
+3. Map the data to your own data model
+4. Add heavy caching where doing N+1 requests (works well because you usually eat many of the same things)
+
+And then this layer can be used to build a native app on top off.
+
+## Conclusion
+
+I have been using this for a while now, and it works great. I can track my food intake, and the app is actually usable. I am not sure if this is legal, but I don't think they will come after me for it. I am not selling it, and I am not making money off of it. It is just a personal project that I use to track my food intake. It is also my only significant SwiftUI project, so it is not the code is not quite my best. If you do want to check it out, it is [public on GitHub](https://github.com/simonvreman/vreetmeter).

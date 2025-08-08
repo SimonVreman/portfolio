@@ -29,8 +29,7 @@
     ".next/types/**/*.ts",
     "src/app/page.mdx",
     "src/app/page.mdx",
-    "postcss.config.mjs",
-    "src/app/a/hello-world/page.mdx"
+    "postcss.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

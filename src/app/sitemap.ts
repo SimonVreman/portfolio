@@ -16,12 +16,25 @@ async function getArticleSlugs(dir: string) {
     .map((slug) => slug.replace(/\\/g, '/'))
 }
 
-export default async function sitemap() {
-  const articlesDirectory = path.join(process.cwd(), 'src', 'app', 'a')
-  const slugs = await getArticleSlugs(articlesDirectory)
+const baseUrl = 'https://simonvreman.nl'
 
-  return slugs.map((slug) => ({
-    url: `https://simonvreman.nl/a/${slug}`,
+export default async function sitemap() {
+  const articlesDirectory = path.join(process.cwd(), 'src', 'app', '(pages)', 'a')
+  const slugs = await getArticleSlugs(articlesDirectory)
+  const articles = slugs.map((slug) => ({
+    url: `${baseUrl}/a/${slug}`,
     lastModified: new Date().toISOString(),
   }))
+
+  return [
+    ...articles,
+    {
+      url: `${baseUrl}/`,
+      lastModified: new Date().toISOString(),
+    },
+    {
+      url: `${baseUrl}/work`,
+      lastModified: new Date().toISOString(),
+    },
+  ]
 }
